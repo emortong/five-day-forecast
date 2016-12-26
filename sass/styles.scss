@@ -3,18 +3,22 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Lato; }
+  font-family: Lato;
+}
 
 h1,
 h3,
 p {
-  margin: 0; }
+  margin: 0;
+}
+
 
 .container {
   padding: 10px;
   margin: 5px;
   text-align: center;
-  margin: auto; }
+  margin: auto;
+}
 
 .weatherDiv {
   border: solid black;
@@ -24,22 +28,32 @@ p {
   display: inline-block;
   color: blue;
   text-align: center;
-  margin: 10px; }
+  margin: 10px;
+}
 
 .day {
-  font-size: 25px; }
+  font-size: 25px;
+}
 
 .textDiv h1, h3, p {
-  padding-top: 5px; }
+  padding-top: 5px;
+}
 
 .icon {
-  background-image: url("/assets/rainy.svg");
+  background-image: url('/assets/rainy.svg');
   background-size: 70%;
   height: 40%;
   background-repeat: no-repeat;
   margin-left: 48px;
-  margin-top: 10px; }
+  margin-top: 10px;
+}
 
 .textDiv {
   margin-top: -13px;
-  padding: 20px; }
+  padding: 20px;
+}
+
+
+
+
+

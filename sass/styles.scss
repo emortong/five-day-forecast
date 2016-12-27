@@ -12,27 +12,81 @@ p {
   margin: 0;
 }
 
+#cityTitle {
+  font-size: 60px;
+  text-align: center;
+  margin: auto;
+}
+
+.didYouMean {
+  text-align: center;
+  margin:auto;
+}
+
+.didYouMean h3 {
+  margin-top: 15px;
+  margin-right: 550px;
+  font-weight: lighter;
+  font-size: 25px;
+  color: silver;
+}
+
+
+.didYouMean ul li {
+  display: inline-block;
+  margin: 20px;
+  font-size: 20px;
+}
+
+.didYouMean li:hover {
+  color: orange;
+}
 
 .container {
   padding: 10px;
   margin: 5px;
   text-align: center;
-  margin: auto;
+  margin: 20px;;
+}
+
+.inputDiv {
+  text-align: center;
+  margin: 40px;
+}
+
+#cityName {
+  width: 40%;
+  height: 50px;
+  font-size: 30px;
+  text-align: center;
+}
+
+#getWeatherButton {
+  width: 20%;
+  height: 56px;
+  font-size: 23px;
+  vertical-align: top;
+  color: #16a9b8;
+  @media (max-width: 790px) {
+    width: 30%;
+    font-size: 16px;
+  }
 }
 
 .weatherDiv {
-  border: solid black;
+  border: 2px solid black;
   height: 280px;
   width: 200px;
   background-color: white;
   display: inline-block;
-  color: blue;
+  color: #16a9b8;
   text-align: center;
   margin: 10px;
 }
 
 .day {
   font-size: 25px;
+  padding:5px;
 }
 
 .textDiv h1, h3, p {

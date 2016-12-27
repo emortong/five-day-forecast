@@ -1,16 +1,85 @@
 
-var city = document.getElementById('cityName').value;
 var main = document.getElementById('main');
+
+var cityTitle = document.createElement('h1');
+cityTitle.id = 'cityTitle';
+main.appendChild(cityTitle);
+
+var didYouMean = document.createElement('div');
+didYouMean.classList.add('didYouMean')
+main.appendChild(didYouMean);
+
+var didYouMeanTitle = document.createElement('h3');
+didYouMean.appendChild(didYouMeanTitle);
+
+var optionsUl = document.createElement('ul');
+didYouMean.appendChild(optionsUl);
 
 var container = document.createElement('div');
 container.classList.add('container');
 main.appendChild(container);
 
+
 function getWeather() {
+  var cityIdObjects = [];
+  var cityId;
+  var city = document.getElementById('cityName').value;
+  cityTitle.innerHTML = city;
+  document.getElementById('cityName').value = '';
+  while (optionsUl.hasChildNodes()) {
+    optionsUl.removeChild(optionsUl.lastChild);
+  }
+  while (container.hasChildNodes()) {
+    container.removeChild(container.lastChild);
+  }
+
+
+  var locationReq = new XMLHttpRequest();
+  locationReq.addEventListener('load', locationReqListener);
+  locationReq.open('GET', '/city.list.json');
+  locationReq.send()
+
+  function locationReqListener() {
+
+    var cities = JSON.parse(this.responseText);
+    cities.forEach(function(cities) {
+      if(cities.name === city) {
+          cityIdObjects.push(cities);
+          console.log(cityIdObjects);
+        }
+      })
+
+      if(cityIdObjects.length > 0) {
+        didYouMeanTitle.innerHTML = 'Did You Mean...'
+
+        cityIdObjects.forEach(function(city) {
+        var li = document.createElement('li');
+        li.innerHTML = city.name + ', ' + city.country;
+        optionsUl.appendChild(li);
+
+          li.addEventListener('click', function() {
+           while (optionsUl.hasChildNodes()) {
+             optionsUl.removeChild(optionsUl.lastChild);
+             didYouMeanTitle.innerHTML = ''
+            }
+
+            cityId = city._id;
+            cityTitle.innerHTML = city.name + ', ' + city.country;;
+            showWeather(cityId);
+          })
+        })
+      }
+    }
+  }
+
+
+
+
+function showWeather(cityId) {
 
   var weatherReq = new XMLHttpRequest();
     weatherReq.addEventListener('load', weatherReqListener);
-    weatherReq.open('GET', 'http://api.openweathermap.org/data/2.5/forecast?q=Honolulu,us&units=imperial&mode=json&appid=3cbfd5118bdcf7dea13501c1c1135c2e');
+    weatherReq.open('GET', `http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=imperial&mode=json&appid=3cbfd5118bdcf7dea13501c1c1135c2e`);
     weatherReq.send();
 
   function weatherReqListener() {
@@ -72,11 +141,6 @@ function getWeather() {
       describeWeather.innerHTML = description;
       textDiv.appendChild(describeWeather);
 
+      }
     }
-
-
-
   }
-}
-
-

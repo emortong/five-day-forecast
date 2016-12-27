@@ -19,11 +19,33 @@ var container = document.createElement('div');
 container.classList.add('container');
 main.appendChild(container);
 
+var units = 'imperial';
+var unitBtn = document.getElementById('unit');
+var x = document.getElementById('cel');
+var y = document.getElementById('far');
+var cityId;
+
+
+function changeUnit() {
+  if(units === 'imperial') {
+    units = 'metric';
+    x.style.color = '#16a9b8';
+    y.style.color = 'grey';
+  } else {
+    units = 'imperial';
+    x.style.color = 'grey';
+    y.style.color = '#16a9b8';
+  }
+  if(cityId !== undefined) {
+    showWeather(cityId);
+  }
+}
+
 
 function getWeather() {
   var cityIdObjects = [];
-  var cityId;
   var city = document.getElementById('cityName').value;
+  city = toTitleCase(city);
   cityTitle.innerHTML = city;
   document.getElementById('cityName').value = '';
   while (optionsUl.hasChildNodes()) {
@@ -79,7 +101,7 @@ function showWeather(cityId) {
 
   var weatherReq = new XMLHttpRequest();
     weatherReq.addEventListener('load', weatherReqListener);
-    weatherReq.open('GET', `http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=imperial&mode=json&appid=3cbfd5118bdcf7dea13501c1c1135c2e`);
+    weatherReq.open('GET', `http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&units=${units}&mode=json&appid=3cbfd5118bdcf7dea13501c1c1135c2e`);
     weatherReq.send();
 
   function weatherReqListener() {
@@ -144,3 +166,7 @@ function showWeather(cityId) {
       }
     }
   }
+
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
